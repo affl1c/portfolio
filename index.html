@@ -22,9 +22,6 @@
       font-size: 3em;
       margin: 0;
     }
-    header p {
-      font-size: 1.3em;
-    }
     section {
       padding: 50px 20px;
       max-width: 900px;
@@ -34,16 +31,21 @@
       text-align: center;
       margin-bottom: 30px;
     }
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+    #auth input {
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
     }
-    .portfolio-item {
-      background: #fff;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    #auth button {
+      padding: 10px 15px;
+      margin: 5px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
     #feedback form {
       display: flex;
@@ -73,12 +75,6 @@
       border-radius: 6px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
-    footer {
-      background: #222;
-      color: #ccc;
-      text-align: center;
-      padding: 20px;
-    }
   </style>
 </head>
 <body>
@@ -89,65 +85,40 @@
     <p>Занимаюсь в основном Reels, Tiktok'ами</p>
   </header>
 
-  <!-- Портфолио -->
-  <section id="portfolio" style="text-align: center; padding: 40px 20px;">
-    <h2 style="font-size: 2em; margin-bottom: 20px;">Мои работы</h2>
-    <div style="max-width: 800px; margin: 0 auto;">
-      <iframe width="100%" height="450"
-        src="https://www.youtube.com/embed/UTCUwPMi_7U"
-        title="YouTube video player" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen></iframe>
-    </div>
-  </section>
-
   <!-- Авторизация -->
-  <section id="auth" style="text-align:center; padding:20px;">
+  <section id="auth" style="text-align:center;">
     <h2>Авторизация</h2>
-    <input id="authEmail" type="email" placeholder="Email">
-    <input id="authPassword" type="password" placeholder="Пароль">
-    <br><br>
+    <input type="email" id="authEmail" placeholder="Email" required>
+    <input type="password" id="authPassword" placeholder="Пароль" required><br>
     <button onclick="register()">Регистрация</button>
     <button onclick="login()">Войти</button>
     <button onclick="logout()">Выйти</button>
-    <p id="authStatus" style="margin-top:10px; color:green;"></p>
   </section>
 
   <!-- Отзывы -->
-  <section id="feedback" style="display:none;">
+  <section id="feedback">
     <h2>Отзывы клиентов</h2>
-    <form id="reviewForm">
+
+    <!-- форма добавления отзыва -->
+    <form id="reviewForm" style="display:none;">
       <input type="text" id="name" placeholder="Ваше имя" required>
       <textarea id="message" placeholder="Ваш отзыв" required></textarea>
       <button type="submit">Оставить отзыв</button>
     </form>
-    <div id="reviewsList"></div>
-  </section>
 
-  <!-- Контакты -->
-  <section id="contacts" style="text-align:center; padding:40px 20px;">
-    <h2 style="font-size:2em; margin-bottom:20px;">Контакты</h2>
-    <p>
-      Email:
-      <a href="mailto:affl1c@mail.ru" style="color:blue; text-decoration:underline;">
-        affl1c@mail.ru
-      </a>
-    </p>
-    <p>
-      Telegram:
-      <a href="https://t.me/affl1c" target="_blank" rel="noopener noreferrer" style="color:blue; text-decoration:underline;">
-        @affl1c
-      </a>
-    </p>
+    <!-- список отзывов -->
+    <div id="reviewsList"></div>
   </section>
 
   <!-- Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+    import { 
+      getAuth, createUserWithEmailAndPassword, 
+      signInWithEmailAndPassword, signOut, onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
     import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 
-    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyBrO1_2eiS-r05Q-GFnrMmFuXUPl1snw6g",
       authDomain: "portfolio-reviews-da748.firebaseapp.com",
@@ -159,87 +130,58 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
-    const form = document.getElementById("reviewForm");
-    const reviewsList = document.getElementById("reviewsList");
-    const feedbackSection = document.getElementById("feedback");
-    const authStatus = document.getElementById("authStatus");
-
-    // Регистрация
-    window.register = async function() {
+    // регистрация
+    window.register = async () => {
       const email = document.getElementById("authEmail").value;
       const password = document.getElementById("authPassword").value;
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert("Регистрация успешна!");
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Регистрация успешна!");
+      } catch (e) {
+        alert("Ошибка: " + e.message);
+      }
     };
 
-    // Вход
-    window.login = async function() {
+    // вход
+    window.login = async () => {
       const email = document.getElementById("authEmail").value;
       const password = document.getElementById("authPassword").value;
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("Вход выполнен!");
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Вход выполнен!");
+      } catch (e) {
+        alert("Ошибка: " + e.message);
+      }
     };
 
-    // Выход
-    window.logout = async function() {
+    // выход
+    window.logout = async () => {
       await signOut(auth);
-      alert("Вы вышли из аккаунта!");
+      alert("Вы вышли!");
     };
 
-    // Проверка состояния
+    // следим за авторизацией
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        feedbackSection.style.display = "block";
-        authStatus.textContent = `Вы вошли как ${user.email}`;
+        document.getElementById("reviewForm").style.display = "flex"; // форма появляется
       } else {
-        feedbackSection.style.display = "none";
-        authStatus.textContent = "Вы не авторизованы";
+        document.getElementById("reviewForm").style.display = "none"; // форма скрыта
       }
     });
 
     // Отправка отзыва
+    const form = document.getElementById("reviewForm");
+    const reviewsList = document.getElementById("reviewsList");
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const name = document.getElementById("name").value;
       const message = document.getElementById("message").value;
-      const user = auth.currentUser;
-
-      if (!user) {
-        alert("Сначала войдите!");
-        return;
-      }
 
       await addDoc(collection(db, "reviews"), {
         name: name,
         message: message,
-        email: user.email,
-        date: new Date().toISOString()
-      });
-
-      form.reset();
-      loadReviews();
-    });
-
-    // Загрузка отзывов
-    async function loadReviews() {
-      reviewsList.innerHTML = "";
-      const q = query(collection(db, "reviews"), orderBy("date", "desc"));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const div = document.createElement("div");
-        div.classList.add("review");
-        div.innerHTML = `<p>"${data.message}"</p>
-                         <span>— ${data.name} (${data.email})</span>`;
-        reviewsList.appendChild(div);
-      });
-    }
-
-    loadReviews();
-  </script>
-
-</body>
-</html>
+        date: new
