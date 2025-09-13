@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Портфолио видеомонтажёра</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+      line-height: 1.6;
+    }
+    header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://picsum.photos/1600/900?blur');
+      background-size: cover;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease-out;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+    }
+    /* Портфолио */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .portfolio-item {
+      background: #1c1c1c;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.8s ease-out;
+    }
+    .portfolio-item.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .portfolio-item iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+    }
+    .portfolio-item p {
+      padding: 15px;
+    }
+    /* Отзывы */
+    .reviews {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .review {
+      background: #1c1c1c;
+      padding: 20px;
+      border-radius: 10px;
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.8s ease-out;
+    }
+    .review.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .review span {
+      display: block;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+    /* Контакты */
+    .contacts {
+      text-align: center;
+    }
+    .contacts a {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 20px;
+      background: #e50914;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+    .contacts a:hover {
+      background: #b20710;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Главный экран -->
+  <header>
+    <h1>Я — Видеомонтажёр</h1>
+    <p>Создаю динамичные и цепляющие видеоролики</p>
+  </header>
+
+  <!-- Портфолио -->
+  <section id="portfolio">
+    <h2>Портфолио</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
+        <p>Проект 1: Рекламный ролик</p>
+      </div>
+      <div class="portfolio-item">
+        <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
+        <p>Проект 2: Музыкальное видео</p>
+      </div>
+      <div class="portfolio-item">
+        <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
+        <p>Проект 3: Блоговое интро</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Отзывы -->
+  <section id="reviews">
+    <h2>Отзывы</h2>
+    <div class="reviews">
+      <div class="review">
+        <p>“Очень качественный монтаж, все сроки соблюдены!”</p>
+        <span>— Анна, продюсер</span>
+      </div>
+      <div class="review">
+        <p>“Работа превзошла ожидания, буду обращаться ещё.”</p>
+        <span>— Игорь, музыкант</span>
+      </div>
+      <div class="review">
+        <p>“Отличный результат, всё именно так, как хотелось.”</p>
+        <span>— Мария, блогер</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты -->
+  <section id="contacts">
+    <h2>Контакты</h2>
+    <div class="contacts">
+      <p>Напиши мне:</p>
+      <a href="mailto:yourmail@example.com">📧 Email</a>
+      <a href="https://t.me/yourtelegram" target="_blank">💬 Telegram</a>
+      <a href="https://instagram.com/yourinstagram" target="_blank">📷 Instagram</a>
+    </div>
+  </section>
+
+  <script>
+    // Анимация при скролле
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('section, .portfolio-item, .review').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
