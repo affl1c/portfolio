@@ -118,11 +118,44 @@
   </section>
 
   <!-- Контакты -->
-  <section id="contacts" style="text-align: center; padding: 40px 20px;">
-  <h2 style="font-size: 2em; margin-bottom: 20px;">Контакты</h2>
-  <p>Email: <a href="mailto:affl1c@mail.ru">affl1c@mail.ru</a></p>
-  <p>Telegram: <a href="https://t.me/affl1c" target="_blank">@affl1c</a></p>
+  <section id="contacts" style="text-align:center; padding:40px 20px;">
+  <h2 style="font-size:2em; margin-bottom:20px;">Контакты</h2>
+
+  <p>
+    Email:
+    <a id="emailLink"
+       href="mailto:affl1c@mail.ru"
+       style="color:blue; text-decoration:underline;">
+      affl1c@mail.ru
+    </a>
+  </p>
+
+  <p>
+    Telegram:
+    <a id="tgLink"
+       href="https://t.me/affl1c"
+       target="_blank" rel="noopener noreferrer"
+       style="color:blue; text-decoration:underline;">
+      @affl1c
+    </a>
+  </p>
 </section>
+
+<script>
+  // небольшая диагностика — при клике покажет в консоли точный href
+  document.getElementById('emailLink').addEventListener('click', (e) => {
+    console.log('Email link clicked. href =', e.currentTarget.getAttribute('href'), 'absolute =', e.currentTarget.href);
+    // если нужно — можно принудительно открыть:
+    // window.location.href = e.currentTarget.getAttribute('href');
+  });
+
+  document.getElementById('tgLink').addEventListener('click', (e) => {
+    console.log('Telegram link clicked. href =', e.currentTarget.getAttribute('href'), 'absolute =', e.currentTarget.href);
+    // принудительно открывать в новой вкладке (альтернатива):
+    // window.open(e.currentTarget.getAttribute('href'), '_blank', 'noopener');
+  });
+</script>
+
 
 
   <!-- Firebase -->
@@ -182,6 +215,7 @@
 
 </body>
 </html>
+
 
 
 
