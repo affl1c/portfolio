@@ -90,137 +90,19 @@
   </header>
 
   <!-- Портфолио -->
-<section id="portfolio" style="text-align: center; padding: 40px 20px;">
-  <h2 style="font-size: 2em; margin-bottom: 20px;">Мои работы</h2>
-
-  <div style="max-width: 800px; margin: 0 auto;">
-    <iframe width="100%" height="450"
-      src="https://www.youtube.com/embed/UTCUwPMi_7U"
-      title="YouTube video player" frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen></iframe>
-  </div>
-</section>
-
-
-
-
-  <!-- Отзывы -->
-  <section id="feedback">
-    <h2>Отзывы клиентов</h2>
-    <form id="reviewForm">
-      <input type="text" id="name" placeholder="Ваше имя" required>
-      <textarea id="message" placeholder="Ваш отзыв" required></textarea>
-      <button type="submit">Оставить отзыв</button>
-    </form>
-
-    <div id="reviewsList"></div>
+  <section id="portfolio" style="text-align: center; padding: 40px 20px;">
+    <h2 style="font-size: 2em; margin-bottom: 20px;">Мои работы</h2>
+    <div style="max-width: 800px; margin: 0 auto;">
+      <iframe width="100%" height="450"
+        src="https://www.youtube.com/embed/UTCUwPMi_7U"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
   </section>
 
-  <!-- Контакты -->
-  <section id="contacts" style="text-align:center; padding:40px 20px;">
-  <h2 style="font-size:2em; margin-bottom:20px;">Контакты</h2>
-
-  <p>
-    Email:
-    <a id="emailLink"
-       href="mailto:affl1c@mail.ru"
-       style="color:blue; text-decoration:underline;">
-      affl1c@mail.ru
-    </a>
-  </p>
-
-  <p>
-    Telegram:
-    <a id="tgLink"
-       href="https://t.me/affl1c"
-       target="_blank" rel="noopener noreferrer"
-       style="color:blue; text-decoration:underline;">
-      @affl1c
-    </a>
-  </p>
-</section>
-
-<script>
-  // небольшая диагностика — при клике покажет в консоли точный href
-  document.getElementById('emailLink').addEventListener('click', (e) => {
-    console.log('Email link clicked. href =', e.currentTarget.getAttribute('href'), 'absolute =', e.currentTarget.href);
-    // если нужно — можно принудительно открыть:
-    // window.location.href = e.currentTarget.getAttribute('href');
-  });
-
-  document.getElementById('tgLink').addEventListener('click', (e) => {
-    console.log('Telegram link clicked. href =', e.currentTarget.getAttribute('href'), 'absolute =', e.currentTarget.href);
-    // принудительно открывать в новой вкладке (альтернатива):
-    // window.open(e.currentTarget.getAttribute('href'), '_blank', 'noopener');
-  });
-</script>
-
-
-
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-
-    // 🔹 Твой config из Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyBrO1_2eiS-r05Q-GFnrMmFuXUPl1snw6g",
-      authDomain: "portfolio-reviews-da748.firebaseapp.com",
-      projectId: "portfolio-reviews-da748",
-      storageBucket: "portfolio-reviews-da748.firebasestorage.app",
-      messagingSenderId: "415409177670",
-      appId: "1:415409177670:web:affad37da61b7e6c207647",
-      measurementId: "G-9MQZ1F5SNZ"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const form = document.getElementById("reviewForm");
-    const reviewsList = document.getElementById("reviewsList");
-
-    // Отправка отзыва
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const message = document.getElementById("message").value;
-
-      await addDoc(collection(db, "reviews"), {
-        name: name,
-        message: message,
-        date: new Date().toISOString()
-      });
-
-      form.reset();
-      loadReviews();
-    });
-
-    // Загрузка отзывов (новые сверху)
-    async function loadReviews() {
-      reviewsList.innerHTML = "";
-      const q = query(collection(db, "reviews"), orderBy("date", "desc"));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const div = document.createElement("div");
-        div.classList.add("review");
-        div.innerHTML = `<p>"${data.message}"</p><span>— ${data.name}</span>`;
-        reviewsList.appendChild(div);
-      });
-    }
-
-    loadReviews();
-  </script>
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
+  <!-- Авторизация -->
+  <section id="auth" style="text-align:center; padding:20px;">
+    <h2>Авторизация</h2>
+    <input id="authEmail" type="email" placeholder="Email">
+    <input id
