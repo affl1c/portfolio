@@ -3,117 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Портфолио видеомонтажёра</title>
+  <title>Моё портфолио видеомонтажёра</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: #fff;
       line-height: 1.6;
+      background: #f4f4f4;
+      color: #333;
     }
     header {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://picsum.photos/1600/900?blur');
-      background-size: cover;
+      background: #000;
+      color: #fff;
+      padding: 100px 20px;
       text-align: center;
     }
     header h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
+      font-size: 3em;
+      margin: 0;
     }
     header p {
-      font-size: 1.2rem;
-      opacity: 0.8;
+      font-size: 1.3em;
     }
     section {
-      padding: 60px 20px;
-      max-width: 1000px;
+      padding: 50px 20px;
+      max-width: 900px;
       margin: auto;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.8s ease-out;
-    }
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
     h2 {
       text-align: center;
-      margin-bottom: 40px;
-      font-size: 2rem;
+      margin-bottom: 30px;
     }
-    /* Портфолио */
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
     }
     .portfolio-item {
-      background: #1c1c1c;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      transform: translateY(30px);
-      opacity: 0;
-      transition: all 0.8s ease-out;
-    }
-    .portfolio-item.visible {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    .portfolio-item iframe {
-      width: 100%;
-      height: 200px;
-      border: none;
-    }
-    .portfolio-item p {
+      background: #fff;
       padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
-    /* Отзывы */
-    .reviews {
+    #feedback form {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    #feedback input, #feedback textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+    #feedback button {
+      padding: 12px;
+      background: #000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 1em;
     }
     .review {
-      background: #1c1c1c;
-      padding: 20px;
-      border-radius: 10px;
-      opacity: 0;
-      transform: translateX(-50px);
-      transition: all 0.8s ease-out;
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
-    .review.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    .review span {
-      display: block;
-      margin-top: 10px;
-      font-size: 0.9rem;
-      opacity: 0.7;
-    }
-    /* Контакты */
-    .contacts {
+    footer {
+      background: #222;
+      color: #ccc;
       text-align: center;
-    }
-    .contacts a {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 20px;
-      background: #e50914;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: 0.3s;
-    }
-    .contacts a:hover {
-      background: #b20710;
+      padding: 20px;
     }
   </style>
 </head>
@@ -121,72 +85,96 @@
 
   <!-- Главный экран -->
   <header>
-    <h1>Я — Видеомонтажёр</h1>
-    <p>Создаю динамичные и цепляющие видеоролики</p>
+    <h1>Привет! Я видеомонтажёр</h1>
+    <p>Создаю динамичные ролики и визуальные истории</p>
   </header>
 
   <!-- Портфолио -->
   <section id="portfolio">
-    <h2>Портфолио</h2>
+    <h2>Мои работы</h2>
     <div class="portfolio-grid">
-      <div class="portfolio-item">
-        <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
-        <p>Проект 1: Рекламный ролик</p>
-      </div>
-      <div class="portfolio-item">
-        <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
-        <p>Проект 2: Музыкальное видео</p>
-      </div>
-      <div class="portfolio-item">
-        <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
-        <p>Проект 3: Блоговое интро</p>
-      </div>
+      <div class="portfolio-item">🎬 Работа 1</div>
+      <div class="portfolio-item">🎬 Работа 2</div>
+      <div class="portfolio-item">🎬 Работа 3</div>
     </div>
   </section>
 
   <!-- Отзывы -->
-  <section id="reviews">
-    <h2>Отзывы</h2>
-    <div class="reviews">
-      <div class="review">
-        <p>“Очень качественный монтаж, все сроки соблюдены!”</p>
-        <span>— Анна, продюсер</span>
-      </div>
-      <div class="review">
-        <p>“Работа превзошла ожидания, буду обращаться ещё.”</p>
-        <span>— Игорь, музыкант</span>
-      </div>
-      <div class="review">
-        <p>“Отличный результат, всё именно так, как хотелось.”</p>
-        <span>— Мария, блогер</span>
-      </div>
-    </div>
+  <section id="feedback">
+    <h2>Отзывы клиентов</h2>
+    <form id="reviewForm">
+      <input type="text" id="name" placeholder="Ваше имя" required>
+      <textarea id="message" placeholder="Ваш отзыв" required></textarea>
+      <button type="submit">Оставить отзыв</button>
+    </form>
+
+    <div id="reviewsList"></div>
   </section>
 
   <!-- Контакты -->
   <section id="contacts">
     <h2>Контакты</h2>
-    <div class="contacts">
-      <p>Напиши мне:</p>
-      <a href="mailto:yourmail@example.com">📧 Email</a>
-      <a href="https://t.me/yourtelegram" target="_blank">💬 Telegram</a>
-      <a href="https://instagram.com/yourinstagram" target="_blank">📷 Instagram</a>
-    </div>
+    <p>✉️ Email: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+    <p>📱 Telegram: <a href="https://t.me/yourusername">@yourusername</a></p>
   </section>
 
-  <script>
-    // Анимация при скролле
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.2 });
+  <footer>
+    <p>© 2025 Моё портфолио видеомонтажёра</p>
+  </footer>
 
-    document.querySelectorAll('section, .portfolio-item, .review').forEach(el => {
-      observer.observe(el);
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+    // 🔹 Твой config из Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBrO1_2eiS-r05Q-GFnrMmFuXUPl1snw6g",
+      authDomain: "portfolio-reviews-da748.firebaseapp.com",
+      projectId: "portfolio-reviews-da748",
+      storageBucket: "portfolio-reviews-da748.firebasestorage.app",
+      messagingSenderId: "415409177670",
+      appId: "1:415409177670:web:affad37da61b7e6c207647",
+      measurementId: "G-9MQZ1F5SNZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const form = document.getElementById("reviewForm");
+    const reviewsList = document.getElementById("reviewsList");
+
+    // Отправка отзыва
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const message = document.getElementById("message").value;
+
+      await addDoc(collection(db, "reviews"), {
+        name: name,
+        message: message,
+        date: new Date().toISOString()
+      });
+
+      form.reset();
+      loadReviews();
     });
+
+    // Загрузка отзывов (новые сверху)
+    async function loadReviews() {
+      reviewsList.innerHTML = "";
+      const q = query(collection(db, "reviews"), orderBy("date", "desc"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.classList.add("review");
+        div.innerHTML = `<p>"${data.message}"</p><span>— ${data.name}</span>`;
+        reviewsList.appendChild(div);
+      });
+    }
+
+    loadReviews();
   </script>
 
 </body>
