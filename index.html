@@ -99,14 +99,14 @@
   <section id="feedback">
     <h2>Отзывы клиентов</h2>
 
-    <!-- форма добавления отзыва -->
+    <!-- форма доступна только для авторизованных -->
     <form id="reviewForm" style="display:none;">
       <input type="text" id="name" placeholder="Ваше имя" required>
       <textarea id="message" placeholder="Ваш отзыв" required></textarea>
       <button type="submit">Оставить отзыв</button>
     </form>
 
-    <!-- список отзывов -->
+    <!-- список отзывов всегда виден -->
     <div id="reviewsList"></div>
   </section>
 
@@ -166,9 +166,9 @@
     // следим за авторизацией
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        document.getElementById("reviewForm").style.display = "flex"; // форма появляется
+        document.getElementById("reviewForm").style.display = "flex"; // форма доступна
       } else {
-        document.getElementById("reviewForm").style.display = "none"; // форма скрыта
+        document.getElementById("reviewForm").style.display = "none"; // скрыта
       }
     });
 
@@ -184,4 +184,28 @@
       await addDoc(collection(db, "reviews"), {
         name: name,
         message: message,
-        date: new
+        date: new Date().toISOString()
+      });
+
+      form.reset();
+      loadReviews();
+    });
+
+    // Загрузка отзывов
+    async function loadReviews() {
+      reviewsList.innerHTML = "";
+      const q = query(collection(db, "reviews"), orderBy("date", "desc"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.classList.add("review");
+        div.innerHTML = `<p>"${data.message}"</p><span>— ${data.name}</span>`;
+        reviewsList.appendChild(div);
+      });
+    }
+
+    loadReviews();
+  </script>
+</body>
+</html>
